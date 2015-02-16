@@ -7,7 +7,7 @@
         <cfargument name="step" type="numeric">
      </cffunction>
     
-    <cffunction name="install" returntype="string" output="yes" hint="called from Railo to install application">
+    <cffunction name="install" returntype="string" output="yes" hint="called from Lucee to install application">
     	<cfargument name="error" type="struct">
         <cfargument name="path" type="string">
         <cfargument name="config" type="struct">
@@ -28,7 +28,7 @@
         <cfreturn sReturn>
     </cffunction>
 
-   <cffunction name="uninstall" returntype="string" output="no" hint="called by Railo to uninstall the application">
+   <cffunction name="uninstall" returntype="string" output="no" hint="called by Lucee to uninstall the application">
         <cfargument name="path" type="string">
         <cfargument name="config" type="struct">
 		<cfset var sReturn = "">
@@ -53,7 +53,7 @@
         <cfreturn sReturn>
     </cffunction>
 
-    <cffunction name="update" returntype="string" output="no" hint="called from Railo to update a existing application">
+    <cffunction name="update" returntype="string" output="no" hint="called from Lucee to update a existing application">
 		<cfreturn install(argumentCollection=arguments)>
     </cffunction>
 

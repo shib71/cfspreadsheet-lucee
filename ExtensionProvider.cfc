@@ -1,7 +1,7 @@
 component displayname="extension provider" output="false" {
 	
 	instance = {
-		thisAddress = "http://#cgi.SERVER_NAME#:#cgi.SERVER_PORT#/RailoExtensionProvider/"
+		thisAddress = "http://#cgi.SERVER_NAME#:#cgi.SERVER_PORT#/luceeExtensionProvider/"
 	};
 	
 	
@@ -28,13 +28,13 @@ component displayname="extension provider" output="false" {
 		QuerySetCell(apps,'description',desc);
 		QuerySetCell(apps,'author','Ext by Andy Jarrett.<br/>CFPOI by Matt Woodward');
 		QuerySetCell(apps,'image','http://www.gstatic.com/codesite/ph/images/defaultlogo.png');
-		QuerySetCell(apps,'support','https://github.com/andyj/RailoExtensionProvider/issues');
+		QuerySetCell(apps,'support','https://github.com/andyj/railoExtensionProvider/issues');
 		QuerySetCell(apps,'documentation','http://code.google.com/p/cfpoi/w/list');
 		QuerySetCell(apps,'created',CreateDate(2009,2,24));
-		QuerySetCell(apps,'version',"v341");
+		QuerySetCell(apps,'version',"v350");
 		QuerySetCell(apps,'category',"Application");
 		QuerySetCell(apps,'download','#instance.thisAddress#/cfpoi.zip');
-		//QuerySetCell(apps,'download','https://github.com/andyj/RailoExtensionProvider/blob/master/cfpoi.zip');
+		//QuerySetCell(apps,'download','https://github.com/andyj/railoExtensionProvider/blob/master/cfpoi.zip');
 		
 		return apps;			
 	}

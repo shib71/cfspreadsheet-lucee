@@ -1,12 +1,12 @@
 <cfcomponent>
 
-    <cffunction name="install" returntype="struct" output="no" hint="called from Railo to install application">
+    <cffunction name="install" returntype="struct" output="no" hint="called from Lucee to install application">
     	<cfargument name="error" type="struct">
         <cfargument name="path" type="string">
         <cfargument name="config" type="struct">
         
 		<cfset var result = {status = true, message = ""} />
-		<cfset var serverPath = expandPath('{railo-web-directory}') />
+		<cfset var serverPath = expandPath('{lucee-web-directory}') />
 		
 		<cftry>
 			
@@ -49,7 +49,7 @@
 		        
 				<cfsavecontent variable="temp">
 					<cfoutput>
-						<p>Tags correctly installed. You will need to Restart Railo for the functions to work.</p>
+						<p>Tags correctly installed. You will need to Restart Lucee for the functions to work.</p>
 					</cfoutput>				
 				</cfsavecontent>
 				
@@ -58,7 +58,7 @@
 			<cfcatch type="any">            
 				<cfset result.status = false />
 				<cfset result.message = cfcatch.message />
-				<cflog file="railo_extension_install" text="Error: #cfcatch.message#">
+				<cflog file="lucee_extension_install" text="Error: #cfcatch.message#">
 			</cfcatch>			
         
 	   </cftry>
@@ -68,7 +68,7 @@
     </cffunction>
 	
 	
-	<cffunction name="uninstall" returntype="struct" output="no" hint="called by Railo to uninstall the application">
+	<cffunction name="uninstall" returntype="struct" output="no" hint="called by Lucee to uninstall the application">
         <cfargument name="path" type="any"/>
         <cfargument name="config" type="any"/>
         <cfscript>
@@ -76,15 +76,18 @@
 				status = true,
 				message = ""};
 			var ssDir = "";
-			var serverPath = expandPath('{railo-web-directory}');
+			var serverPath = expandPath('{lucee-web-directory}');
 			
 			processResult.status = deleteAsset("directory", "#serverPath#/components/org/cfpoi");
 			processResult.status = deleteAsset("file", "#serverPath#/lib/poi-3.7-20101029.jar");
 			processResult.status = deleteAsset("file", "#serverPath#/lib/poi-ooxml-3.7-20101029.jar");
 			processResult.status = deleteAsset("file", "#serverPath#/lib/poi-ooxml-schemas-3.7-20101029.jar");
+/*
+			Files appear to be already loaded by Lucee, this will likely change
 			processResult.status = deleteAsset("file", "#serverPath#/lib/dom4j-1.6.1.jar");
 			processResult.status = deleteAsset("file", "#serverPath#/lib/geronimo-stax-api_1.0_spec-1.0.jar");
 			processResult.status = deleteAsset("file", "#serverPath#/lib/xmlbeans-2.3.0.jar");
+*/
 			processResult.status = deleteAsset("file", "#serverPath#/library/tag/spreadsheet.cfc");
 		</cfscript>
 		
