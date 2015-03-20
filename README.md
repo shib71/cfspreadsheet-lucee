@@ -4,7 +4,7 @@ This is a fork of the Team CFAdvance cfspreadsheet-railo extension, modified to 
 
 ##Update:
 The ApachePOI jars have been updated to the latest stable version (3.11)
-xmlbeans-2.6.0.jar also added as per Apache recommendtioj, though v2.3 is all that is required.
+xmlbeans-2.6.0.jar also added as per Apache recommendation, though v2.3 is all that is required.
 Version bumped to 4.0 because of new jars.
 
 ##Installation: via Lucee Admin GUI
