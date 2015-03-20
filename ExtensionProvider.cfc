@@ -1,42 +1,41 @@
 component displayname="extension provider" output="false" {
-	
+
 	instance = {
 		thisAddress = "http://#cgi.SERVER_NAME#:#cgi.SERVER_PORT#/luceeExtensionProvider/"
 	};
-	
-	
+
+
 	remote struct function getInfo(){
 		var info = {
-			title="AndyJarrett.co.uk",
-			description="",
-			image="http://www.andyjarrett.co.uk/andy_jarrett_logo.png",
-			url="http://www.andyjarrett.co.uk/blog",
+			title="Leftbower",
+			description="A spreadsheet extension for Lucee",
+			image="#instance.thisAddress#leftbower.png",
+			url="https://github.com/Leftbower/cfspreadsheet-lucee",
 			mode="develop"
 		};
 		return info;
 	}
-	
+
 	remote query function listApplications(){
 		var apps = queryNew('type,id,name,label,description,version,category,image,download,author,codename,video,support,documentation,forum,mailinglist,network,created');
 		var rootURL=getInfo().url;
-		var desc = "cfspreadsheet tag &amp; functions";
+		var desc = "cfspreadsheet";
 		QueryAddRow(apps);
-		QuerySetCell(apps,'id','10EEC23A-0779-4068-9507A9C5ED4A8641');
-		QuerySetCell(apps,'name','CFPOI');
+		QuerySetCell(apps,'id','C092CE1F-C769-4E92-8A7AB609204D8F71');
+		QuerySetCell(apps,'name','cfspreadsheet');
 		QuerySetCell(apps,'type','web');
-		QuerySetCell(apps,'label','&lt;cfspreadsheet/&gt; tag &amp; functions');
+		QuerySetCell(apps,'label','&lt;cfspreadsheet /&gt;');
 		QuerySetCell(apps,'description',desc);
-		QuerySetCell(apps,'author','Ext by Andy Jarrett.<br/>CFPOI by Matt Woodward');
-		QuerySetCell(apps,'image','http://www.gstatic.com/codesite/ph/images/defaultlogo.png');
-		QuerySetCell(apps,'support','https://github.com/andyj/railoExtensionProvider/issues');
-		QuerySetCell(apps,'documentation','http://code.google.com/p/cfpoi/w/list');
-		QuerySetCell(apps,'created',CreateDate(2009,2,24));
-		QuerySetCell(apps,'version',"v350");
+		QuerySetCell(apps,'author','Extension by Andrew Kretzer (forked from Andy Jarrett)<br/>CFPOI by Matt Woodward');
+		QuerySetCell(apps,'image','#instance.thisAddress#Apps-Spreadsheet-App-icon.png');
+		QuerySetCell(apps,'support','https://github.com/Leftbower/cfspreadsheet-lucee/issues');
+		QuerySetCell(apps,'documentation','https://github.com/Leftbower/cfspreadsheet-lucee/wiki');
+		QuerySetCell(apps,'created',CreateDate(2015,3,17));
+		QuerySetCell(apps,'version',"4.00");
 		QuerySetCell(apps,'category',"Application");
 		QuerySetCell(apps,'download','#instance.thisAddress#/cfpoi.zip');
-		//QuerySetCell(apps,'download','https://github.com/andyj/railoExtensionProvider/blob/master/cfpoi.zip');
-		
-		return apps;			
+		//QuerySetCell(apps,'download','https://github.com/Leftbower/cfspreadsheet-lucee/raw/master/cfpoi.zip');
+
+		return apps;
 	}
 }
-
