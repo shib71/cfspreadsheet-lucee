@@ -11,16 +11,30 @@
 
 		<cfscript>
 			if( NOT structKeyExists( server, "_poiLoader")){
-				local.version = val(listFirst(server.lucee.version, "."));
+				if (structKeyExists( server, "lucee" )){
+					local.version = val(listFirst(server.lucee.version, "."));
 
-				//create the loader
-				local.paths = arrayNew(1);
-				// This points to the jar we want to load. Could also load a directory of .class files
-				arrayAppend(Local.paths, expandPath('{lucee-web-directory}'&'/lib/poi-3.11-20141221.jar'));
-				arrayAppend(Local.paths, expandPath('{lucee-web-directory}'&'/lib/poi-ooxml-3.11-20141221.jar'));
-				arrayAppend(Local.paths, expandPath('{lucee-web-directory}'&'/lib/poi-ooxml-schemas-3.11-20141221.jar'));
-				arrayAppend(Local.paths, expandPath('{lucee-web-directory}'&'/lib/ooxml-lib/xmlbeans-2.6.0.jar'));
-				arrayAppend(Local.paths, expandPath('{lucee-web-directory}'&'/lib/poi-export-utility.jar'));
+					//create the loader
+					local.paths = arrayNew(1);
+					// This points to the jar we want to load. Could also load a directory of .class files
+					arrayAppend(Local.paths, expandPath('{lucee-web-directory}'&'/lib/poi-3.11-20141221.jar'));
+					arrayAppend(Local.paths, expandPath('{lucee-web-directory}'&'/lib/poi-ooxml-3.11-20141221.jar'));
+					arrayAppend(Local.paths, expandPath('{lucee-web-directory}'&'/lib/poi-ooxml-schemas-3.11-20141221.jar'));
+					arrayAppend(Local.paths, expandPath('{lucee-web-directory}'&'/lib/ooxml-lib/xmlbeans-2.6.0.jar'));
+					arrayAppend(Local.paths, expandPath('{lucee-web-directory}'&'/lib/poi-export-utility.jar'));
+				}
+				else if (structKeyExists( server, "railo" )){
+					local.version = val(listFirst(server.railo.version, "."));
+
+					//create the loader
+					local.paths = arrayNew(1);
+					// This points to the jar we want to load. Could also load a directory of .class files
+					arrayAppend(Local.paths, expandPath('{railo-web-directory}'&'/lib/poi-3.11-20141221.jar'));
+					arrayAppend(Local.paths, expandPath('{railo-web-directory}'&'/lib/poi-ooxml-3.11-20141221.jar'));
+					arrayAppend(Local.paths, expandPath('{railo-web-directory}'&'/lib/poi-ooxml-schemas-3.11-20141221.jar'));
+					arrayAppend(Local.paths, expandPath('{railo-web-directory}'&'/lib/ooxml-lib/xmlbeans-2.6.0.jar'));
+					arrayAppend(Local.paths, expandPath('{railo-web-directory}'&'/lib/poi-export-utility.jar'));
+				}
 
 				if( NOT structKeyExists( server, "_poiLoader")){
 					server._poiLoader = createObject("component", "javaloader.JavaLoader").init(loadPaths = local.paths, loadColdFusionClassPath=true, trustedSource=true);
@@ -3038,6 +3052,8 @@
 	function getCFMLEngine() {
 		if ( structKeyExists( server, "lucee" ) and structkeyExists( server.lucee, "version") ) {
 			return "lucee";
+		} elseif ( structKeyExists( server, "railo" ) and structkeyExists( server.railo, "version") ) {
+			return "railo";
 		} else {
 			return "acf";
 		}
@@ -3048,6 +3064,12 @@
 		var isLinux = false;
 
 		if ( getCFMLEngine() is "lucee" ) {
+
+			if ( server.os.name is "Linux" ) {
+				isLinux = true;
+			}
+
+		} elseif ( getCFMLEngine() is "railo" ) {
 
 			if ( server.os.name is "Linux" ) {
 				isLinux = true;
