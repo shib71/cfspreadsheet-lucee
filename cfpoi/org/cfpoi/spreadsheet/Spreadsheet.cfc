@@ -305,6 +305,27 @@
 		<!--- restore the original active sheet index as in ACF --->
 		<cfset setActiveSheet( sheetIndex=Local.activeSheetNum ) />
 
+		<!--- Handle query or CSV accordingly. --->
+		<cfif StructKeyExists(arguments, "query")>
+			<!--- Add the column names to the first row
+				If arguments.columnames exist, use that value for the headers
+				otherwise use the columnlist from the query variable itself
+			--->
+			<cfif structKeyExists(arguments, "columnnames")>
+				<cfset addRow(arguments.columnnames, 1, 1, false) />
+			<cfelse>
+				<cfset addRow(arguments.query.columnlist, 1, 1, false) />
+			</cfif>
+
+			<!--- Add the data starting at the 2nd row, since the header
+				was added to the first row
+			---->
+			<cfset addRows( arguments.query, 2, 1, false, arguments.columnFormats, arguments.autoSizeColumns ) />
+
+		<cfelseif structKeyExists(arguments, "name")>
+			<cfset addDelimitedRows( arguments.name ) />
+		</cfif>
+
 		<!--- save the workbook to disk --->
 		<cfset writeToFile( argumentCollection=arguments ) />
 
