@@ -296,15 +296,6 @@
 		<cfset Local.sheetToActivate = getWorkbook().getSheetIndex( Local.sheetToUpdate ) + 1 />
 		<cfset setActiveSheet( sheetIndex=Local.sheetToActivate ) />
 
-		<cfif structKeyExists(arguments, "query")>
-			<cfset addRows( arguments.query, 1, 1, false, arguments.columnFormats, arguments.autoSizeColumns ) />
-		<cfelseif structKeyExists(arguments, "format")>
-			<cfset addDelimitedRows( arguments.name ) />
-		</cfif>
-
-		<!--- restore the original active sheet index as in ACF --->
-		<cfset setActiveSheet( sheetIndex=Local.activeSheetNum ) />
-
 		<!--- Handle query or CSV accordingly. --->
 		<cfif StructKeyExists(arguments, "query")>
 			<!--- Add the column names to the first row
@@ -325,6 +316,9 @@
 		<cfelseif structKeyExists(arguments, "name")>
 			<cfset addDelimitedRows( arguments.name ) />
 		</cfif>
+
+		<!--- restore the original active sheet index as in ACF --->
+		<cfset setActiveSheet( sheetIndex=Local.activeSheetNum ) />
 
 		<!--- save the workbook to disk --->
 		<cfset writeToFile( argumentCollection=arguments ) />
